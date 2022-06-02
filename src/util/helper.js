@@ -12,6 +12,7 @@ const printMonth = function() {
 const getBatchInfo = function() {
   let batchInformation = 'Radon, W3D4, the topic for today is Nodejs module system assignment discussion'
   console.log(batchInformation)
+  
 }
 
 module.exports.printDate = printDate
