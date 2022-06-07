@@ -16,22 +16,22 @@ const getBooksList= async function (req, res) {
 }
 
 const BooksInYear=async function(req,res){
-    let year=req.body
-    let allBooks= await BookModel.find(year)
+    let year=req.body.year
+    let allBooks= await BookModel.find({year:year})
     res.send({msg:allBooks})
 
 }
 const ParticularBooks=async function(req,res){
-    let name=req.query.bookName
-    let year=req.query.year
-
-    let allBooks= await BookModel.find({$or:[{bookName:{$eq:name}},{year:{$eq:year}}]})
+    let fetch=req.body
+    // let allBooks= await BookModel.find({$or:[{bookName:fetch.bookName},{year:fetch.year},{tags:fetch.tags},{authorName:fetch.authorName},{totalPages:fetch.totalPages}]})
+    let allBooks= await BookModel.find(fetch)
     res.send({msg:allBooks})
 
 }
 const XINRBooks=async function(req,res){
 
-    let allBooks= await BookModel.find({$or:[{price:{$eq:100}},{price:{$eq:200}},{price:{$eq:500}}]})
+    // let allBooks= await BookModel.find({$or:[{"price.indianPrice":{$eq:"100INR"}},{"price.indianPrice":{$eq:"200INR"}},{"price.indianPrice":{$eq:"500INR"}}]})
+    let allBooks= await BookModel.find({"price.indianPrice":{$in:["100INR","200INR","500INR"]}})
     res.send({msg:allBooks})
 
 }
